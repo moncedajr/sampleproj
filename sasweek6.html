@@ -6,6 +6,61 @@
     <title>Document</title>
 </head>
 <body>
-    <h>hello world </h>
+    <h1>Input and Display Arrays</h1>
+    <form>
+        <table>
+            <tr>
+                <th>Item Code</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            <script>
+                const itemcode = [];
+                const description = [];
+                const price = [];
+                const quantity = [];
+                const subtotal = [];
+
+                function computeSubtotal(i) {
+                    subtotal[i] = price[i] * quantity[i];
+                }
+
+                function displayData() {
+                    const table = document.querySelector('table');
+                    for (let i = 0; i < 10; i++) {
+                        computeSubtotal(i);
+                        table.innerHTML += `
+                            <tr>
+                                <td>${itemcode[i]}</td>
+                                <td>${description[i]}</td>
+                                <td>${price[i]}</td>
+                                <td>${quantity[i]}</td>
+                                <td>${subtotal[i]}</td>
+                            </tr>
+                        `;
+                    }
+
+                    const total = subtotal.reduce((acc, curr) => acc + curr, 0);
+                    table.innerHTML += `
+                        <tr>
+                            <td colspan="4">Total</td>
+                            <td>${total}</td>
+                        </tr>
+                    `;
+                }
+
+                for (let i = 0; i < 10; i++) {
+                    itemcode[i] = prompt(`Enter Item Code for element ${i + 1}:`);
+                    description[i] = prompt(`Enter Description for element ${i + 1}:`);
+                    price[i] = parseFloat(prompt(`Enter Price for element ${i + 1}:`));
+                    quantity[i] = parseInt(prompt(`Enter Quantity for element ${i + 1}:`));
+                }
+
+                displayData();
+            </script>
+        </table>
+    </form>
 </body>
 </html>
